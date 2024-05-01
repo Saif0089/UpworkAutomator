@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Upwork AutoMator.sln"
+    "dotnet.defaultSolution": "UpworkAutomator.sln"
 }
