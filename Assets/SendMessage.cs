@@ -19,6 +19,8 @@ public class SendMessage : MonoBehaviour
 
     public TMP_Text ErrorShower;
 
+    public string webhookUrl = "https://discord.com/api/webhooks/1234460744435761162/preaFYnwJJnLEUCKAa4ztjzLkZfeP7zTNOHN4zY8CbiQDmAuhc9FihyfBngTViGpQNuk";
+
     private void Start()
     {
         if (!string.IsNullOrEmpty(PlayerPrefs.GetString("SID")))
@@ -84,7 +86,27 @@ public class SendMessage : MonoBehaviour
 
         }
     }
+    public IEnumerator PostToDiscord()
+    {
+        // Create the webhook message payload
+        WWWForm form = new WWWForm();
+        form.AddField("content", messageBody);
 
+        // Send the message to Discord channel via webhook
+        using (UnityWebRequest www = UnityWebRequest.Post(webhookUrl, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("Error: " + www.error);
+            }
+            else
+            {
+                Debug.Log("Message sent successfully");
+            }
+        }
+    }
     public void ChangeSID()
     {
         accountSid = SID.text;

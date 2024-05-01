@@ -88,7 +88,8 @@ public class MyRSSReader : MonoBehaviour
     public void TestNotification()
     {
         sendMessage.messageBody = $"Testing for {feedOf}";
-        sendMessage.SendWhatsAppMessage();
+        // sendMessage.SendWhatsAppMessage();
+        StartCoroutine(sendMessage.PostToDiscord());
     }
     IEnumerator ReadRSS()
     {
@@ -221,7 +222,8 @@ public class MyRSSReader : MonoBehaviour
             if (allowSendMessages)
             {
                 sendMessage.messageBody = $"Found {feedOf}\n \n {title}\n \n{hourlyText}\n \n{CountryText}\n \n{timeText}\n \n{hrefLink}";
-                sendMessage.SendWhatsAppMessage();
+                // sendMessage.SendWhatsAppMessage();
+                StartCoroutine(sendMessage.PostToDiscord());
             }
             // }
         }
