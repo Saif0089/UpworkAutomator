@@ -1,0 +1,41 @@
+Hi,
+
+Thank you so much for providing detailed information about your job. It instantly grabbed my attention and aligns perfectly with my experience as a Game Developer.
+
+The 8 years of experience in the world of game development have been marked by a relentless pursuit of excellence and a keen eye for detail. Over the years, I have developed a broad skill set in Unity, encompassing everything from 2D and 3D game mechanics to advanced features like multiplayer systems and VR/AR integrations. This experience positions me uniquely to handle the complexities and challenges of diverse gaming projects.
+
+I strongly encourage you to view my recent portfolio, as it not only reflects my expertise but also demonstrates how my capabilities align perfectly with the requirements of your project.
+
+1. Soul of King: ""https://www.soulofking.gg/ , https://www.youtube.com/watch?v=IwrKOx1Qz0E&t=4s"" (MOBA, Multiplayer, Unity, AI, Firebase, Photon, Heroic Labs)
+2. City Distruction: https://play.google.com/store/apps/details?id=com.nodetrack.citydes (Hyper Casual, Ads System, In app Purchases, Dynamic Mesh, Unity)
+3. Guitar Teaching App: https://play.google.com/store/apps/details?id=com.ClvTechnologies.GuitarApp (Teaching app, Music, Looper, Guitar Tuning, Video Player, Login with google or apple, firebase)
+4. Handpan Hero: https://youtu.be/8R2L47gF_p0 (Music App, Music Nodes through JSons, JWT Login, Azure Backend, Play and Pause, Unity)
+5. Multiplayer Hamster: https://simmer.io/@abduldevhouse/hamstergame (Multiplayer, Player vs Player, AI, Photon Fusion, Firebase, Azure, Score system)
+6. TopDown VR: https://www.youtube.com/watch?v=Y7gWknLKHtQ (VR, Top Down,  Shooting, Unity, Score system, AI, Oculus)
+7. Graple Hook VR: https://www.youtube.com/watch?v=fgjp1HzXRx0 (Graple hook system, AI, VR, Unity, Oculus)
+8. Star Fox Rework: https://www.youtube.com/watch?v=JDI-TXvbt5M (Flight Simulation, Shooting, AI, Dynamic Path, Cutscenes, Score System, Damage System, Shield System)
+9. Idle Springs: https://apps.apple.com/us/app/idle-springs/id1613738684 (Idle Game, Unity, AI, Ads Integeration, In app purchases)
+10. NSS game: https://apps.apple.com/us/app/nss-heroes/id1628303481 (Endless runner, Unity, Score system, AWS backend, Firebase, Zenject)
+11. Take a Walk: https://apache.vrportal.org/webgl/TWTest/ (VR, AR, Video streaming, Video Editting, WebGL, Firebase, Eleven Labs, Avaturn, Patient Monitoring Simulation)
+12. Lasco Scaffolding: ""https://www.haki.com/ https://www.youtube.com/watch?v=_XbLji7KK_w"" (Scaffolding Simulation, Unity, UI ToolKit, File System, Bill of material, Real time building calculation)
+
+My Technical Expertise:
+Game Engines: Expertise in Unity and Unreal Engine.
+Programming: Proficient in C#, C++, and JavaScript.
+Graphics and UI/UX Design: Skilled in Blender, Maya, Adobe Photoshop, and Illustrator.
+Sound Design: Experience with FMOD and Wwise.
+Version Control: Adept in using Git and GitHub.
+Mobile Development: Proficient in iOS and Android platforms.
+Advanced Integration: Including ChatGPT, Audio Lips Sync, and AR/VR (XR).
+Backend Technologies: Azure, AWS, MySQL.
+Multiplayer Frameworks: Mastery in Mirror, Fishnet, Nakama Heroic Labs, Photon, UNET.
+
+My Development Approach:
+Initial Consultation: Diving deep into your vision, goals, and target audience.
+Conceptualization and Planning: Strategically aligning with your objectives.
+Agile Development: Adapting swiftly and efficiently to evolving project needs.
+Continuous Engagement: Regular updates and feedback to ensure alignment and success.
+
+I'm ready to discuss how I can contribute to your project's success and look forward to the opportunity to work with you.
+Best regards,
+Ehtisham Yasin

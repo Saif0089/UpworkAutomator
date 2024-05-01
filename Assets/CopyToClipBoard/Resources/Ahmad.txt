@@ -1,0 +1,21 @@
+My name is Ahmad Arslan, and I am experienced with Xamarin and .NET MAUI Mobile App with over 6 years of industry experience. After carefully reviewing your job post, I am confident that I am a great fit for the role and would love to contribute my skills and expertise to your project. A brief description of my knowledge and skills:
+
+✓ Proficient in Xamarin since 2017 and .NET MAUI, specializing in cross-platform mobile app development.
+✓ Skilled in C# and the .NET framework for writing clean and maintainable code.
+✓ Experienced in Xamarin.Forms, Xamarin.iOS, and Xamarin.Android for creating native user interfaces on iOS,    Android, and Strong foundation in software engineering principles, design patterns, and software architecture.
+✓ Knowledgeable in RESTful APIs, databases, and version control systems.
+✓ Proactive problem-solver and team collaborator with a dedication to delivering high-quality work on time.
+✓ Continuously updated on industry trends and technologies.
+
+My skill set includes managing multiple projects, providing insightful code reviews, mentoring developers, and harmonizing cross-functional teams. My notable projects include but not limited to:
+
+Sibelhealth (Web, App)
+https://www.sibelhealth.com/
+Computicate (Web, App)
+https://www.computicatepsa.com/
+Eventgateway (Web, App)
+https://portal.eventgateway.net/
+Messagenius (App)
+https://messagenius.com/
+
+I am confident that my skills, experience, and dedication to delivering high-quality solutions make me a valuable asset for your projects. I am eager to contribute my expertise and collaborate with you. Thank you for considering my proposal. I look forward to the opportunity to discuss your requirements further.

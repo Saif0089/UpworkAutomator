@@ -1,0 +1,44 @@
+Hi,
+I trust this message finds you well. With over 8 years of dedicated experience as a Game Developer, I am genuinely excited about the potential opportunity to contribute to your project. I believe I am the perfect candidate to meet and exceed your expectations.
+
+In consideration of the job description, I am confident that my specialized skills, extensive experience, and intrinsic passion for game development are the perfect fit for your project requirements.
+
+Here's a snapshot of the comprehensive tech stack I can bring to the table:
+
+• Game Engines: Unity, Unreal Engine
+• Programming Languages: C#, C++, JavaScript
+• Shader Graphs/Shader programming
+• 3D Modeling and Animation: Blender, Maya
+• UI/UX Design: Adobe Photoshop, Adobe Illustrator
+• Sound Design: FMOD, Wwise
+• Version Control Systems: Git, GitHub
+• Mobile Platforms: iOS, Android
+• ChatGPT integeration
+• Audio Lips Sync
+• AR and VR (XR) integeration
+• Azure, AWS, MySQL
+• Multiplayer: Mirror, Fishnet, Nakama Heroic Labs, Photon, UNET
+
+My proficiency extends across the spectrum of game development, encompassing concept creation, gameplay mechanics, level design, and UI/UX implementation. With my expertise in Unity and Unreal Engine, I excel in crafting visually striking and immersive gaming experiences.
+
+I encourage you to review my portfolio by following these links:
+
+1. Electric Mods: https://electric-mods.com/ 
+2. Beam NG Destruction System: https://youtube.com/shorts/WQxectnaq0M?feature=share 
+3. Project Racer: https://pracer.en.uptodown.com/android 
+4. VR Physical Keyboard: https://www.youtube.com/watch?v=K936m1ITyuw 
+5. VR Controls Demo: https://www.youtube.com/watch?v=bQ0m4pc_SzA 
+6. OSR Star finder: https://play.google.com/store/apps/details?id=nl.DTT.OSR&hl=en&gl=US 
+7. AI Voice Chat: https://youtu.be/Vkh-7JEBpik 
+8. Super RC: https://bitplanetgames.com/ 
+9. Medieval Lands: https://youtu.be/VBr7gwP3fLI 
+10. Dandera Quest: https://youtu.be/Ub-SAqslBpY 
+11. Avasci: https://apps.apple.com/us/app/avasci/id6477493063 
+
+I am grateful for your consideration of my work and am keen to discuss your project further in an audio or video call at your earliest convenience.
+
+I eagerly anticipate the possibility of working together on this exciting project.
+
+Best regards,
+Saif Ur Rehman
+
