@@ -10,7 +10,7 @@ public class FeedShower : MonoBehaviour
     public TMP_Text Price;
     public TMP_Text Location;
     public TMP_Text PostedOn;
-
+    public string DatePosted;
     public Button MyButton;
     public Button ChromeButton;
     public Button OperaButton;

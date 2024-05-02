@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 using TMPro;
 using System.Runtime.InteropServices;
 using Vuopaja;
+using UnityEngine.UI;
+using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 
 public class MyRSSReader : MonoBehaviour
@@ -35,9 +38,19 @@ public class MyRSSReader : MonoBehaviour
 
     public SendMessage sendMessage;
     public TMP_InputField refreshTimeIP;
+
+    public TheJobScroll DefaultJobScroll;
+    public List<TheJobScroll> theJobScrolls = new List<TheJobScroll>();
+
+    public NewSearchAdder newSearchAdderPrefab;
+
+    public List<NewSearchAdder> newSearchAddersList = new List<NewSearchAdder>();
+    public RectTransform searcherContainer;
+
     private void Awake()
     {
         Application.runInBackground = true;
+        DefaultJobScroll.Title.text = feedOf;
         if (!string.IsNullOrEmpty(PlayerPrefs.GetString("FEED")))
         {
             feedOf = PlayerPrefs.GetString("FEED");
@@ -56,10 +69,65 @@ public class MyRSSReader : MonoBehaviour
         feedShowers.ForEach(x => Destroy(x.gameObject));
         feedShowers.Clear();
         StopAllCoroutines();
-        StartCoroutine(ReadRSS());
+        StartCoroutine(ReadRSS(feedOf));
+        if (!string.IsNullOrEmpty(PlayerPrefs.GetString("FeedsToSearch")))
+        {
+            string[] feeds = PlayerPrefs.GetString("FeedsToSearch").Split(',');
+            foreach (var item in feeds)
+            {
+                string searchTerm = item.Split('-')[0];
+                string webhook = item.Split('-')[1];
+                NewSearchAdder newSearchAdder = Instantiate(newSearchAdderPrefab, newSearchAdderPrefab.transform.parent);
+                newSearchAdder.SearchTerm.text = searchTerm;
+                newSearchAdder.WebhookURL.text = webhook;
+                newSearchAddersList.Add(newSearchAdder);
+                InstantiateSearchField(searchTerm, webhook);
+            }
+        }
         // TimerCallback timeCB = new TimerCallback(PrintTime);
         // Timer time = new Timer(timeCB, null, 0, 1000);
     }
+    public void MoveRight()
+    {
+        searcherContainer.DOAnchorPosX(searcherContainer.anchoredPosition.x - DefaultJobScroll.rectTransform.sizeDelta.x, 0.5f, true);
+    }
+
+    public void MoveLeft()
+    {
+        searcherContainer.DOAnchorPosX(searcherContainer.anchoredPosition.x + DefaultJobScroll.rectTransform.sizeDelta.x, 0.5f, true);
+    }
+    public void InitiateNewSearch()
+    {
+        NewSearchAdder newSearchAdder = Instantiate(newSearchAdderPrefab, newSearchAdderPrefab.transform.parent);
+        newSearchAdder.SearchTerm.interactable = true;
+        newSearchAdder.WebhookURL.interactable = true;
+        newSearchAdder.SearchTerm.text = string.Empty;
+        newSearchAdder.WebhookURL.text = string.Empty;
+        newSearchAdder.addButton.interactable = true;
+        newSearchAddersList.Add(newSearchAdder);
+    }
+    public void AddNewSearching(string searchTerm, string webHook)
+    {
+        if (string.IsNullOrEmpty(PlayerPrefs.GetString("FeedsToSearch")))
+        {
+            PlayerPrefs.SetString("FeedsToSearch", $"{searchTerm}-{webHook}");
+        }
+        else
+        {
+            PlayerPrefs.SetString("FeedsToSearch", PlayerPrefs.GetString("FeedsToSearch") + $",{searchTerm}-{webHook}");
+        }
+        InstantiateSearchField(searchTerm, webHook);
+    }
+
+    private void InstantiateSearchField(string searchTerm, string webHook)
+    {
+        TheJobScroll newScroll = Instantiate(DefaultJobScroll, DefaultJobScroll.transform.parent);
+        newScroll.rectTransform.anchoredPosition += new Vector2(newScroll.rectTransform.rect.width + 20, 0);
+        newScroll.Title.text = searchTerm;
+        theJobScrolls.Add(newScroll);
+        StartCoroutine(ReadRSS(searchTerm, webHook));
+    }
+
     public void ChangeURL(string url)
     {
         url = url.Replace(" ", "+");
@@ -85,16 +153,22 @@ public class MyRSSReader : MonoBehaviour
         // }
         // Debug.LogFormat("Timer {0}", DateTime.Now.ToLongTimeString());
     }
+    public void ClearData()
+    {
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     public void TestNotification()
     {
-        sendMessage.messageBody = $"Testing for {feedOf}";
+
+        sendMessage.messageBody = $"Tested at {DateTime.Now}";
         // sendMessage.SendWhatsAppMessage();
         StartCoroutine(sendMessage.PostToDiscord());
     }
-    IEnumerator ReadRSS()
+    IEnumerator ReadRSS(string feedName, string webhook = "")
     {
         isGenerated = false;
-        rssUrl = $"https://www.upwork.com/ab/feed/jobs/rss?paging=0%3B10&q={feedOf}&sort=recency&api_params=1&securityToken=38f61ddd185c0f1f85c2241a2892c271d57e6690db7ba606a41ba19a3246cd605cb90772bb51acbf881f8dc9ab1dfa69bdf0d4f19b19c987290206cb98297c34&userUid=1472960028498313216&orgUid=1472960028498313217";
+        rssUrl = $"https://www.upwork.com/ab/feed/jobs/rss?paging=0%3B10&q={feedName}&sort=recency&api_params=1&securityToken=38f61ddd185c0f1f85c2241a2892c271d57e6690db7ba606a41ba19a3246cd605cb90772bb51acbf881f8dc9ab1dfa69bdf0d4f19b19c987290206cb98297c34&userUid=1472960028498313216&orgUid=1472960028498313217";
         while (true)
         {
             int timer = refreshTime;
@@ -106,7 +180,7 @@ public class MyRSSReader : MonoBehaviour
                 XmlDocument rssXmlDoc = new XmlDocument();
                 rssXmlDoc.LoadXml(request.downloadHandler.text);
                 Debug.Log(rssXmlDoc.InnerText);
-                ParseRssFeed(rssXmlDoc);
+                ParseRssFeed(rssXmlDoc, feedName, webhook);
             }
             else
             {
@@ -115,12 +189,18 @@ public class MyRSSReader : MonoBehaviour
             for (int i = 0; i < refreshTime; i++)
             {
                 yield return new WaitForSeconds(1); // Check for new feeds every 60 seconds
+                TheJobScroll timerOfShower = theJobScrolls.FirstOrDefault(x => x.Title.text == feedName);
+
                 timer -= 1;
-                TimerShower.text = timer.ToString();
+                if (timerOfShower != null)
+                    timerOfShower.Timer.text = timer.ToString();
+                else
+                    TimerShower.text = timer.ToString();
             }
+            isGenerated = true;
         }
     }
-    void ParseRssFeed(XmlDocument xmlDoc)
+    void ParseRssFeed(XmlDocument xmlDoc, string searchTerm, string webhook = "")
     {
         XmlNodeList itemNodes = xmlDoc.SelectNodes("rss/channel/item");
         foreach (XmlNode itemNode in itemNodes)
@@ -139,9 +219,9 @@ public class MyRSSReader : MonoBehaviour
             // Debug.Log($"Title: {title}\nLink: {link}\nBudget: {budget}\nCountry: {country}\nHref Link: {hrefLink}\n");
 
             // Create a button or other UI element for each item
-            CreateButtonForFeedItem(title, link, budget, hourly, country, hrefLink, postedOn);
+            CreateButtonForFeedItem(title, link, budget, hourly, country, hrefLink, postedOn, searchTerm, webhook);
         }
-        isGenerated = true;
+        // isGenerated = true;
     }
     string ExtractFromString(string text, string startString, string endString)
     {
@@ -158,14 +238,20 @@ public class MyRSSReader : MonoBehaviour
         }
         return string.Empty;
     }
-    void CreateButtonForFeedItem(string title, string url, string budget, string hourly, string country, string hrefLink, string postedOn)
+    void CreateButtonForFeedItem(string title, string url, string budget, string hourly, string country, string hrefLink, string postedOn, string searchTerm, string webhook)
     {
-        var alreadyPresent = feedShowers.FirstOrDefault(x => x.Title.text == title);
+        var alreadyPresent = feedShowers.FirstOrDefault(x => x.Title.text == title && x.DatePosted == postedOn);
         if (alreadyPresent != null)
         {
             return;
         }
         FeedShower feedShower = Instantiate(feedshowerPefab, feedshowerPefab.transform.parent);
+        TheJobScroll searchListForThisOne = theJobScrolls.FirstOrDefault(x => x.Title.text.Equals(searchTerm));
+        if (searchListForThisOne != null)
+        {
+            feedShower.transform.parent = searchListForThisOne.Content;
+        }
+        feedShower.DatePosted = postedOn;
         feedShower.gameObject.SetActive(true);
         feedShower.Title.text = title;
         DateTime utcTime = DateTime.ParseExact(postedOn, "MMMM dd, yyyy HH:mm 'UTC'", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
@@ -221,9 +307,9 @@ public class MyRSSReader : MonoBehaviour
             // {
             if (allowSendMessages)
             {
-                sendMessage.messageBody = $"Found {feedOf}\n \n {title}\n \n{hourlyText}\n \n{CountryText}\n \n{timeText}\n \n{hrefLink}";
+                sendMessage.messageBody = $"Found {searchTerm}:\n \n {title}\n \n{hourlyText}\n \n{CountryText}\n \n{timeText}\n \n{hrefLink}";
                 // sendMessage.SendWhatsAppMessage();
-                StartCoroutine(sendMessage.PostToDiscord());
+                StartCoroutine(sendMessage.PostToDiscord(webhook));
             }
             // }
         }

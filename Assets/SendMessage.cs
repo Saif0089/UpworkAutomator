@@ -86,14 +86,22 @@ public class SendMessage : MonoBehaviour
 
         }
     }
-    public IEnumerator PostToDiscord()
+    public IEnumerator PostToDiscord(string webhook = "")
     {
         // Create the webhook message payload
         WWWForm form = new WWWForm();
         form.AddField("content", messageBody);
-
+        string url = "";
+        if (string.IsNullOrEmpty(webhook))
+        {
+            url = webhookUrl;
+        }
+        else
+        {
+            url = webhook;
+        }
         // Send the message to Discord channel via webhook
-        using (UnityWebRequest www = UnityWebRequest.Post(webhookUrl, form))
+        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
         {
             yield return www.SendWebRequest();
 
