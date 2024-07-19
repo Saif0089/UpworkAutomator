@@ -151,6 +151,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "jillejr.newtonsoft.json-for-unity": {
+      "version": "https://github.com/jilleJr/Newtonsoft.Json-for-Unity.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f2c6cb09817832dccd0600f291053d8d55298ee9"
+    },
     "nrjwolf.games.iosnativealerts": {
       "version": "git+https://github.com/Nrjwolf/unity-ios-easy-native-alert",
       "depth": 0,
