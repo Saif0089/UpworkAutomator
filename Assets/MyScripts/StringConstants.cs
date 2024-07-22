@@ -6,4 +6,6 @@ public static class StringConstants
     public const string numberOfDepartments = "NumberOfDepartments";
     public const string namesOfDepartments = "NamesOfDepartments";
     public const string refreshTime = "RefreshTime";
+
+    public const string imageURL = "ImageURL";
 }

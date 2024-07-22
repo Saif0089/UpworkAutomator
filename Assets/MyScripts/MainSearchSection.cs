@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Text;
 using Newtonsoft.Json;
+using UnityEngine.SceneManagement;
 
 public class MainSearchSection : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class MainSearchSection : MonoBehaviour
     public TMP_InputField RSSFeed;
     public TMP_InputField WebhookURL;
     public TMP_InputField RefreshTime;
+    public TMP_InputField ImageURL;
 
     public TMP_Text Title;
     public TMP_Text TimerShower;
@@ -41,16 +43,16 @@ public class MainSearchSection : MonoBehaviour
     {
         if (value)
         {
-            MenuButton.DORotate(new Vector3(0, 0, -90), 0.5f);
-            SideBar.DOScale(new Vector3(1, 1, 1),1f);
+            MenuButton.DORotate(new Vector3(0, 0, -90), 0.2f);
+            SideBar.DOScale(new Vector3(1, 1, 1),0.2f);
         }
         else
         {
-            MenuButton.DORotate(new Vector3(0, 0, -0), 0.5f);
-            SideBar.DOScale(new Vector3(0, 1, 1), 1f);
+            MenuButton.DORotate(new Vector3(0, 0, -0), 0.2f);
+            SideBar.DOScale(new Vector3(0, 1, 1), 0.2f);
         }
     }
-
+    public Coroutine myRoutine;
     public void SetFeed()
     {
         gameObject.name = DepartmentName.text;
@@ -59,9 +61,15 @@ public class MainSearchSection : MonoBehaviour
         SetRSSFeed();
         SetWebHookURL();
         SetRefreshTime();
-        StartCoroutine(ReadRSS());
+        SetImageURL();
+        if(myRoutine == null)
+        myRoutine = StartCoroutine(ReadRSS());
     }
-
+    
+    public void SetImageURL()
+    {
+        PlayerPrefs.SetString(StringConstants.imageURL + DepartmentName.text, ImageURL.text);
+    }
     public void SetPlayerPrefName()
     {
         if (string.IsNullOrEmpty(PlayerPrefs.GetString(StringConstants.namesOfDepartments)))
@@ -70,6 +78,10 @@ public class MainSearchSection : MonoBehaviour
         }
         else
         {
+            if(PlayerPrefs.GetString(StringConstants.namesOfDepartments).Contains(DepartmentName.text))
+            {
+                return;
+            }
             PlayerPrefs.SetString(StringConstants.namesOfDepartments, PlayerPrefs.GetString(StringConstants.namesOfDepartments) + "," + DepartmentName.text);
         }
     }
@@ -188,12 +200,16 @@ public class MainSearchSection : MonoBehaviour
         }
         return string.Empty;
     }
-
+    [ContextMenu("Test")]
+    public void SendTestMessage(){
+        StartCoroutine(PostToDiscord("test", "test", "Test", "Test", "Test", "Test", "Test"));
+    }
     public IEnumerator PostToDiscord(string title, string description, string skills, string budget, string applyLink,string country, string postedOn)
     {
         // Construct the JSON payload
         var embed = new
         {
+            thumbnail = new { url = ImageURL.text },
             title = title,
             description = description,
             color = 5814783, // A nice color to match the theme
@@ -205,6 +221,7 @@ public class MainSearchSection : MonoBehaviour
                 new { name = "Apply Link", value = $"[Click here to apply]({applyLink})" }
             },
             footer = new { text = $"Posted on: {postedOn}" }
+            
         };
 
         var payload = new
